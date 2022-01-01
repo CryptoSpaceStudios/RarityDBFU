@@ -1,0 +1,14 @@
+{
+  "name": "raritygen",
+  "version": "0.4.20",
+  "description": "Rarity NFT tool to fill a moralis database.",
+  "main": "genrarity.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "moralis": "0.0.178"
+  }
+}
