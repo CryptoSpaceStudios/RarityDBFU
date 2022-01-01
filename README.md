@@ -1,5 +1,5 @@
 
-# ![VapenApes](https://www.vapenapes.io/favicon.ico)     Rarity Generator
+# ![VapenApes](https://www.vapenapes.io/favicon.ico)     Rarity Database Filler Upper
 
 ### I stole this from <a href='https://github.com/IAmJaysWay/Rarity-Ranking-NFT'> this dude's github</a>.
 He has a tutorial that i found his github through.   <https://www.youtube.com/watch?v=TXpfRRHwjak>
