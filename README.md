@@ -19,3 +19,7 @@ He has a tutorial that i found his github through.   <https://www.youtube.com/wa
 
 ### Run the program in terminal.
       node genrarity.js
+
+
+### Check out your Moralis Dashboard for the results!
+https://EDITMEPLSKTHXBAI.usemoralis.com:2083/apps/moralisDashboard/browser
