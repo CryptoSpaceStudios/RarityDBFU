@@ -4,6 +4,10 @@
 ### I stole this from <a href='https://github.com/IAmJaysWay/Rarity-Ranking-NFT'> this dude's github</a>.
 He has a tutorial that i found his github through.   <https://www.youtube.com/watch?v=TXpfRRHwjak>
 
+### Node Versions
+      tested on Node versions:
+      16.13.0
+      14.18.2
 
 ## To Use:
 
@@ -14,7 +18,6 @@ He has a tutorial that i found his github through.   <https://www.youtube.com/wa
       const collectionName = "TOKENSYMBOL";
 
 ### Then Run in terminal:
-      npm init
       npm install
 
 ### Run the program in terminal.

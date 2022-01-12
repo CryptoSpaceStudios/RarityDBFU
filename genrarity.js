@@ -1,11 +1,31 @@
 const Moralis = require("moralis/node");
 const { timer } = require("rxjs");
 
-const serverUrl = "https://xgrnb3wixiuc.usemoralis.com:2053/server";
-const appId = "7nsBEikxyRplmYy3sEzruswk7BmuU2OPAnnsJJ2I";
-const collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"; // Contract Address Here
-const collectionName = "BAYC"; //CollectionName Here
-Moralis.start({ serverUrl, appId });
+// Configure Moralis API key & secret, Moralis Subdomain, AppID and Moralis Server url
+const moralisApiKey="cgTSeUPt1xDTUnnF4gREYwwQooOwuDQmD4pEidBsUdOjPd3ZwOBL5YgDcJzoRZn1";
+const moralisApiSecret="nB3JOzCtHHioo7a";
+const moralisSubdomain="xgrnb3wixiuc.usemoralis.com";
+const appId="7nsBEikxyRplmYy3sEzruswk7BmuU2OPAnnsJJ2I";
+const serverUrl="https://xgrnb3wixiuc.usemoralis.com:2053/server";
+
+// kill app if moralis variables are not set
+const rtfm = () => {
+	if ( (serverUrl) == "" ) { console.log("\nRTFM"); console.log("\nMoralis serverUrl not set"); process.exit(); }
+	else if ( (appId) == "" ) { console.log("\nRTFM"); console.log("\nMoralis appId not set"); process.exit(); }
+	else if ( (moralisApiKey) == "" ) { console.log("\nRTFM"); console.log("\nMoralis ApiKey not set"); process.exit(); }
+	else if ( (moralisApiSecret) == "" ) { console.log("\nRTFM"); console.log("\nMoralis ApiSecret not set"); process.exit(); }
+  else  {
+	 console.log("Moralis AppID"); console.log(appId);
+	 console.log("\nMoralis URL"); console.log(serverUrl);
+	 console.log("\nInitializing Application\n"); Moralis.start({ serverUrl, appId, moralisApiKey});
+	 process.stdout.write("\u001b[3J\u001b[2J\u001b[1J"); console.clear();
+	}
+}
+rtfm()
+
+// Configure NFT Collection ~
+const collectionAddress = "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d";
+const collectionName = "BAYC";
 
 const resolveLink = (url) => {
   if (!url || !url.includes("ipfs://")) return url;
@@ -19,8 +39,10 @@ async function generateRarity() {
 
   const totalNum = NFTs.total;
   const pageSize = NFTs.page_size;
-  console.log(totalNum);
-  console.log(pageSize);
+	console.log("\nCollection Name:"); console.log(collectionName);
+	console.log("\nTotal NFTs in Collection"); console.log(totalNum);
+	console.log("\nTotal per page"); console.log(pageSize);
+	console.log("\n\nPlease wait.. \n\nThis will take a little bit while we analyze your collection\n\nYou will see it continue shortly\n\n");
   let allNFTs = NFTs.result;
 
   const timer = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -31,7 +53,7 @@ async function generateRarity() {
       offset: i,
     });
     allNFTs = allNFTs.concat(NFTs.result);
-    await timer(10000);
+    await timer(5000);
   }
 
   let metadata = allNFTs.map((e) => JSON.parse(e.metadata).attributes);
@@ -131,20 +153,36 @@ async function generateRarity() {
 
   nftArr.sort((a, b) => b.Rarity - a.Rarity);
 
+
   for (let i = 0; i < nftArr.length; i++) {
     nftArr[i].Rank = i + 1;
     const newClass = Moralis.Object.extend(collectionName);
     const newObject = new newClass();
 
+			const query = new Moralis.Query(newClass);
+			query.equalTo("tokenId", (nftArr[i].token_id));
+			console.log("Processing:");
+			// console.log(nftArr[i].token_id);
+			const results = await query.find();
+			//console.log(results.length);
+			 if ( (results.length) == 1 ) {
+				 console.log("\nSkipping Duplicate");
+				 console.log(nftArr[i].token_id);
+				 console.log("\n");
+				 }
+			else  {
     newObject.set("attributes", nftArr[i].Attributes);
     newObject.set("rarity", nftArr[i].Rarity);
     newObject.set("tokenId", nftArr[i].token_id);
     newObject.set("rank", nftArr[i].Rank);
     newObject.set("image", nftArr[i].image);
-
+   // Wait (in ms) between saves to not piss off moralis rate limiting (as much) :P
+	 // Your results will probably vary ¯\_(ツ)_/¯
+    await timer(500);
     await newObject.save();
-    console.log(i);
-  };
+		console.log("\nSaved")
+			};
+	 };
 
   return true
 }
