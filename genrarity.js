@@ -2,11 +2,11 @@ const Moralis = require("moralis/node");
 const { timer } = require("rxjs");
 
 // Configure Moralis API key & secret, Moralis Subdomain, AppID and Moralis Server url
-const moralisApiKey="cgTSeUPt1xDTUnnF4gREYwwQooOwuDQmD4pEidBsUdOjPd3ZwOBL5YgDcJzoRZn1";
-const moralisApiSecret="nB3JOzCtHHioo7a";
-const moralisSubdomain="xgrnb3wixiuc.usemoralis.com";
-const appId="7nsBEikxyRplmYy3sEzruswk7BmuU2OPAnnsJJ2I";
-const serverUrl="https://xgrnb3wixiuc.usemoralis.com:2053/server";
+const moralisApiKey="";
+const moralisApiSecret="";
+const moralisSubdomain="";
+const appId="";
+const serverUrl="";
 
 // kill app if moralis variables are not set
 const rtfm = () => {
