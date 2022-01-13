@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "moralis": "0.0.178"
+    "moralis": "0.0.178",
+    "react-moralis": "^0.3.11"
   }
 }
